@@ -7,7 +7,11 @@ class JobsController < ApplicationController
   
     def create
         job = Job.create(job_params)
-        render json: job
+       if job.valid?
+         render json: job
+       else
+        render json: job.errors, status: 422
+       end
     end
   
     def update
